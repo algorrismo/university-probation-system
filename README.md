@@ -13,7 +13,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) for the landing page. Select **View dashboard** for a minimal dashboard, or use the task cards to go straight to students, results, probation records, advisors, semesters, or advising notes. The dashboard includes three summary cards, quick actions, and a searchable student list.
+Open [http://localhost:3000](http://localhost:3000) for a minimal landing page with an abstract landscape, a short introduction, and one **View dashboard** button. The dashboard includes three summary cards, quick actions, and a searchable student list. Access results, probation records, advisors, and semesters through the dashboard navigation.
 
 Use the role selector above the page title to switch between officer, advisor, and student views. Advisor and student views also provide an identity selector. The [demo login page](http://localhost:3000/login) provides another way to choose a role.
 
@@ -185,7 +185,7 @@ Use the following paths as a guide; create files as their features are implement
 | Path | Purpose |
 | --- | --- |
 | `src/app/layout.js` | Root HTML layout |
-| `src/app/globals.css` | Global styles and generated Tailwind setup |
+| `src/app/globals.css` | Tailwind CSS import only |
 | `src/app/page.js` | Entry page |
 | `src/app/login/page.js` | Demo login page |
 | `src/app/admin/layout.js` | Shared admin navigation and layout |
@@ -201,6 +201,8 @@ Use the following paths as a guide; create files as their features are implement
 | `src/lib/mock-data.js` | Fictional development data |
 | `src/context/` | Shared demo state where needed |
 | `docs/` | Screenshots, report notes, and approved policy reference |
+
+Keep styling in Tailwind utility classes beside the JSX in each component. Shared controls in `src/components/ui.js` define their own Tailwind styles, and `src/app/layout.js` sets the basic page defaults. There are no separate component stylesheets.
 
 ## 9. Build the frontend in phases
 
