@@ -59,18 +59,18 @@ test('result edits invalidate the current evaluation and repeated evaluation pre
   await page.getByRole('button', { name: 'Save result', exact: true }).click();
   await expect(page.getByRole('status')).toContainText('Demo result saved');
   await page.getByRole('link', { name: 'Probation records', exact: false }).click();
-  await expect(page.locator('.case-item').filter({ hasText: 'Aarav Hassan' })).toHaveCount(0);
+  await expect(page.locator('[data-testid="evaluation-record"]').filter({ hasText: 'Aarav Hassan' })).toHaveCount(0);
   await page.getByLabel('Predefined demo outcome *').selectOption('Recovered');
   await page.getByRole('button', { name: 'Run demo evaluation' }).click();
-  await expect(page.locator('.case-item').filter({ hasText: 'Aarav Hassan' })).toContainText('Recovered');
+  await expect(page.locator('[data-testid="evaluation-record"]').filter({ hasText: 'Aarav Hassan' })).toContainText('Recovered');
   await page.getByLabel('Predefined demo outcome *').selectOption('Good standing');
   await page.getByRole('button', { name: 'Run demo evaluation' }).click();
-  const current = page.locator('.case-item').filter({ hasText: 'Aarav Hassan' });
+  const current = page.locator('[data-testid="evaluation-record"]').filter({ hasText: 'Aarav Hassan' });
   await expect(current).toHaveCount(1);
   await expect(current).toContainText('Good standing');
   await page.getByRole('link', { name: 'Students', exact: true }).click();
   await page.getByRole('link', { name: /Aarav Hassan 23-10482-1/ }).click();
-  const history = page.locator('.case-item').filter({ hasText: 'Aarav Hassan' });
+  const history = page.locator('[data-testid="evaluation-record"]').filter({ hasText: 'Aarav Hassan' });
   await expect(history).toHaveCount(2);
   await expect(history.filter({ hasText: 'Summer 2026' })).toContainText('Probation');
   await expect(page.getByRole('row').filter({ hasText: 'Fall 2026' }).first()).toContainText('2.51');
@@ -84,7 +84,7 @@ test('advisor notes are shared with the selected student and identities stay sco
   await expect(page.getByRole('status')).toContainText('Advising note added');
   await page.getByLabel('Demo role', { exact: true }).selectOption('student');
   await page.getByRole('link', { name: 'Advisor feedback', exact: true }).click();
-  await expect(page.locator('.note-card').filter({ hasText: 'Browser check:' })).toContainText('Attend tutoring on Tuesday.');
+  await expect(page.locator('[data-testid="advising-note"]').filter({ hasText: 'Browser check:' })).toContainText('Attend tutoring on Tuesday.');
   await page.getByLabel('Demo student', { exact: true }).selectOption('23-10516-2');
   await expect(page.getByRole('heading', { name: 'No advising notes yet' })).toBeVisible();
   await page.getByLabel('Demo role', { exact: true }).selectOption('advisor');
@@ -97,15 +97,16 @@ test('advisor notes are shared with the selected student and identities stay sco
 test('mobile navigation and dashboard layout stay usable', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: /Student progress/ })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /A little room/ })).toBeVisible();
+  await expect(page.getByRole('link')).toHaveCount(1);
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
   await page.screenshot({ path: 'test-results/landing-mobile.png', fullPage: true, caret: 'initial' });
-  await page.getByRole('link', { name: 'View dashboard', exact: true }).first().click();
+  await page.getByRole('link', { name: 'View dashboard', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Dashboard', exact: true })).toBeVisible();
   await page.getByRole('textbox', { name: 'Search students...' }).fill('Aarav');
-  await expect(page.locator('.student-overview tbody tr')).toHaveCount(1);
+  await expect(page.locator('[data-testid="student-overview"] tbody tr')).toHaveCount(1);
   await page.getByRole('textbox', { name: 'Search students...' }).fill('');
-  await expect(page.locator('.student-overview tbody tr')).toHaveCount(5);
+  await expect(page.locator('[data-testid="student-overview"] tbody tr')).toHaveCount(5);
   await page.screenshot({ path: 'test-results/dashboard-mobile.png', fullPage: true });
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
   await page.getByRole('button', { name: 'Open navigation', exact: true }).click();
@@ -117,11 +118,11 @@ test('mobile navigation and dashboard layout stay usable', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Dashboard', exact: true })).toBeVisible();
   await page.screenshot({ path: 'test-results/dashboard-desktop.png', fullPage: true });
   await page.getByRole('link', { name: 'Home', exact: true }).click();
-  await expect(page.getByRole('heading', { name: /Student progress/ })).toBeVisible();
-  await expect(page.locator('.landing-feature')).toHaveCount(6);
+  await expect(page.getByRole('heading', { name: /A little room/ })).toBeVisible();
+  await expect(page.getByRole('link')).toHaveCount(1);
   await page.screenshot({ path: 'test-results/landing-desktop.png', fullPage: true, caret: 'initial' });
-  await page.locator('.landing-feature').filter({ hasText: 'Academic results' }).click();
-  await expect(page.getByRole('heading', { name: 'Academic results', exact: true })).toBeVisible();
+  await page.getByRole('link', { name: 'View dashboard', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Dashboard', exact: true })).toBeVisible();
 });
 
 test('semester management validates dates and new advisors appear in assignment forms', async ({ page }) => {
