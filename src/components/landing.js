@@ -1,29 +1,76 @@
-'use client';
 import Link from 'next/link';
-import { GraduationCap, ArrowRight, Users, ClipboardList, ShieldCheck, UserRoundCheck, CalendarDays, MessageSquare, Check } from 'lucide-react';
-import { useDemo } from '@/context/demo-context';
+import { ArrowUpRight } from 'lucide-react';
 
-const features = [
-  { title: 'Students', description: 'Find a student, view their profile, or add someone new.', href: '/admin/students', icon: Users },
-  { title: 'Academic results', description: 'Enter semester results and review GPA and credits.', href: '/admin/results', icon: ClipboardList },
-  { title: 'Probation records', description: 'Review academic standing and semester history.', href: '/admin/probation', icon: ShieldCheck },
-  { title: 'Advisors', description: 'Find the people supporting your students.', href: '/admin/advisors', icon: UserRoundCheck },
-  { title: 'Semesters', description: 'Keep academic terms and results organized.', href: '/admin/semesters', icon: CalendarDays },
-  { title: 'Advising notes', description: 'Review your students and write a helpful action plan.', href: '/advisor/feedback', icon: MessageSquare },
-];
+function GrowthArtwork() {
+  return (
+    <svg
+      viewBox="0 0 480 520"
+      fill="none"
+      aria-hidden="true"
+      className="h-[260px] w-auto max-w-full sm:h-[340px] md:h-auto md:w-full"
+    >
+      <defs>
+        <clipPath id="arch-window">
+          <path d="M100 442V230a140 140 0 0 1 280 0v212Z" />
+        </clipPath>
+      </defs>
+
+      <path d="M82 443V230a158 158 0 0 1 316 0v213" stroke="#C8BFB1" strokeWidth="1" />
+      <path d="M100 442V230a140 140 0 0 1 280 0v212Z" fill="#E7DED0" />
+
+      <g clipPath="url(#arch-window)">
+        <path d="M100 320 380 170v272H100Z" fill="#DDD1BC" />
+        <circle cx="292" cy="224" r="63" fill="#B7583F" />
+        <path d="M100 363c77-53 173-58 280-4v83H100Z" fill="#88917B" />
+        <path d="M100 422c63-108 151-103 280-2v44H100Z" fill="#58674E" />
+        <path d="M210 474c-27-82-11-153 70-224" stroke="#F7F3EB" strokeWidth="30" />
+        <path d="M210 474c-27-82-11-153 70-224" stroke="#B8AA92" strokeWidth="0.8" />
+      </g>
+
+      <path d="M60 443h360" stroke="#BFB5A6" strokeWidth="1" />
+      <path d="M342 66v24m-12-12h24" stroke="#B7583F" strokeWidth="1" />
+      <circle cx="73" cy="317" r="3" fill="#B7583F" />
+      <path d="M183 478h114" stroke="#D9D0C1" strokeWidth="1" />
+    </svg>
+  );
+}
 
 export default function Landing() {
-  const d = useDemo();
-  const probation = d.cases.filter(c => c.semesterId === d.semesterId && c.status === 'Probation').length;
-  return <div className="landing">
-    <a className="skip-link" href="#landing-main">Skip to main content</a>
-    <header className="landing-header"><Link className="simple-brand" href="/"><span><GraduationCap size={23} /></span>Academia<span className="brand-period">.</span></Link><nav aria-label="Home navigation"><a href="#features">Explore features</a><Link className="button primary" href="/admin/dashboard">View dashboard<ArrowRight size={16} /></Link></nav></header>
-    <main id="landing-main">
-      <section className="landing-hero"><div className="hero-copy"><span className="landing-kicker"><span />University Probation System</span><h1>Student progress.<br /><span>Made simple.</span></h1><p>Manage results, keep track of academic standing, and give students the support they need. Everything you need, in one easy place.</p><div className="hero-actions"><Link className="button primary" href="/admin/dashboard">View dashboard<ArrowRight size={18} /></Link><a className="button" href="#features">Explore features</a></div><div className="hero-reassurance"><Check size={16} />Simple tools. Clear information. Better support.</div></div>
-        <div className="landing-preview"><div className="preview-header"><span className="preview-logo"><GraduationCap size={18} />Your workspace</span><span className="preview-tag">At a glance</span></div><div className="preview-body"><div className="preview-greeting"><span>ACADEMIC OVERVIEW</span><h2>A little clarity goes a long way.</h2><p>{d.semesters.find(s => s.id === d.semesterId)?.name}</p></div><div className="preview-stats"><div><Users size={19} /><strong>{d.students.length}</strong><span>Students</span></div><div><ShieldCheck size={19} /><strong>{probation}</strong><span>On probation</span></div><div><UserRoundCheck size={19} /><strong>{d.advisors.length}</strong><span>Advisors</span></div></div><div className="preview-task"><span className="preview-task-icon"><ClipboardList size={20} /></span><div><strong>Ready for the next semester?</strong><span>Start with your students and their results.</span></div><Link href="/admin/results" aria-label="Open academic results"><ArrowRight size={18} /></Link></div><Link className="preview-bottom-link" href="/admin/students">View student records<ArrowRight size={15} /></Link></div></div>
-      </section>
-      <section className="landing-features" id="features"><div className="landing-section-heading"><span className="landing-kicker">YOUR EVERYDAY TOOLS</span><h2>What would you like to do?</h2><p>Choose a task and get straight to it.</p></div><div className="landing-feature-grid">{features.map(({ title, description, href, icon: Icon }) => <Link className="landing-feature" href={href} key={title}><div className="feature-top"><span><Icon size={22} /></span><ArrowRight size={19} /></div><h3>{title}</h3><p>{description}</p></Link>)}</div></section>
-      <section className="landing-roles"><div><h2>A view for everyone.</h2><p>Open the workspace that fits your role.</p></div><div><Link href="/admin/dashboard">Academic officer<ArrowRight size={15} /></Link><Link href="/advisor/dashboard">Advisor<ArrowRight size={15} /></Link><Link href="/student/dashboard">Student<ArrowRight size={15} /></Link></div></section>
-    </main><footer className="landing-footer"><span>Academia · University Probation System</span><span>Frontend demo · Fictional data · Changes reset on refresh</span></footer>
-  </div>;
+  return (
+    <div className="flex min-h-svh flex-col bg-[#F7F4ED] text-[#373C32] selection:bg-[#E2D6C5]">
+      <header className="mx-auto flex w-full max-w-[1320px] items-center px-7 py-7 sm:px-12 sm:py-9">
+        <span className="flex items-center gap-2.5 font-serif text-[25px] tracking-tight">
+          <span aria-hidden="true" className="size-2 rounded-full bg-[#B7583F]" />
+          academia
+        </span>
+      </header>
+
+      <main className="mx-auto grid w-full max-w-[1120px] flex-1 content-center items-center gap-3 px-7 pb-12 sm:px-12 md:grid-cols-[1.1fr_1fr] md:gap-12 md:py-10">
+        <div className="order-2 text-center md:order-1 md:text-left">
+          <h1 className="font-serif text-[clamp(3.5rem,7vw,6.5rem)] leading-[1.03] font-normal tracking-[-0.055em]">
+            A little room<br />
+            <em className="font-normal text-[#8D4938]">to grow.</em>
+          </h1>
+          <p className="mt-6 text-[13px] leading-relaxed text-[#747466] sm:text-sm">
+            A simple space for student progress.
+          </p>
+          <Link
+            href="/admin/dashboard"
+            className="group mt-8 inline-flex min-h-12 items-center justify-center gap-8 rounded-full bg-[#373F32] py-3.5 pr-5 pl-6 text-xs font-medium text-[#F7F4ED] transition-colors hover:bg-[#505A47] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8D4938] motion-reduce:transition-none sm:mt-10"
+          >
+            View dashboard
+            <ArrowUpRight size={17} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none" />
+          </Link>
+        </div>
+
+        <div className="order-1 flex items-center justify-center md:order-2">
+          <GrowthArtwork />
+        </div>
+      </main>
+
+      <footer className="mx-auto w-full max-w-[1320px] px-7 pb-6 text-center text-[9px] tracking-[0.12em] text-[#878477] sm:px-12 sm:pb-8 md:text-left">
+        UNIVERSITY PROBATION SYSTEM
+      </footer>
+    </div>
+  );
 }
